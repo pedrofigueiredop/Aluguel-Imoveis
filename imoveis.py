@@ -6,7 +6,7 @@ import plotly.express as px
 st.set_page_config(layout="wide")
 
 # Lendo o arquivo CSV
-df = pd.read_csv(r'C:\Users\u11169\Desktop\visualizacao\houses_to_rent_v2.csv', sep=';')
+df = pd.read_csv("houses_to_rent_v2.csv", sep=';')
 
 # Convertendo a coluna 'total (R$)' para numérica, se necessário
 df['total (R$)'] = pd.to_numeric(df['total (R$)'], errors='coerce')
