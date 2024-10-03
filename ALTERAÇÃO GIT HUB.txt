@@ -1,0 +1,7 @@
+git add .
+git commit -m "Alteração"
+git push origin main
+
+
+
+streamlit run imoveis.py --server.port 8000

@@ -35,7 +35,7 @@ min_valor, max_valor = st.sidebar.slider(
     (float(df['rent amount (R$)'].min()), float(df['rent amount (R$)'].max()))
 )
 
-# Filtro de número de quartos
+# Filtro para quantidade de quartos
 num_quartos = st.sidebar.slider(
     "Número de quartos", 
     int(df['rooms'].min()), 
@@ -43,7 +43,7 @@ num_quartos = st.sidebar.slider(
     (int(df['rooms'].min()), int(df['rooms'].max()))
 )
 
-# Filtro de número de banheiros
+# Filtro para quantidade de banheiros
 num_banheiros = st.sidebar.slider(
     "Número de banheiros", 
     int(df['bathroom'].min()), 
@@ -115,6 +115,7 @@ with col1:
         st.write("Nenhum imóvel encontrado para o filtro aplicado.")
 
 # Gráfico 3: Presença de mobília
+# site utilizado para escolha das cores https://erikasarti.com/html/tabela-cores/
 with col2:
     if not df_filtrado.empty:  
         df_mobilia_agrupados = df_filtrado.groupby('furniture').size().reset_index(name='Quantidade de Imóveis')
@@ -146,4 +147,22 @@ if not df_filtrado.empty:
 else:
     st.write("Nenhum dado disponível para o gráfico de área.")
 
+# Gráfico 5: Comparativo de Valores de Aluguel por Cidade
+if not df_filtrado.empty:
+    df_rent_avg = df_filtrado.groupby('city')['rent amount (R$)'].mean().reset_index()
+    fig_rent = px.line(df_rent_avg, x='city', y='rent amount (R$)', 
+                       title='Comparativo de Valores de Aluguel por Cidade',
+                       labels={'rent amount (R$)': 'Valor Médio do Aluguel (R$)', 'city': 'Cidade'},
+                       markers=True, height=400, 
+                       color_discrete_sequence=['#FF6347'])
+
+    fig_rent.update_layout(
+        xaxis=dict(showline=False, showgrid=False),
+        yaxis=dict(showline=False, showgrid=False),
+        plot_bgcolor='rgba(0,0,0,0)'  
+    )
+
+    st.plotly_chart(fig_rent, use_container_width=True)
+else:
+    st.write("Nenhum dado disponível para o gráfico de valores de aluguel.")
 
