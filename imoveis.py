@@ -1,8 +1,14 @@
+# Bibliotecas Usadas
+
 import streamlit as st
 import pandas as pd
 import plotly.express as px
 
-# Configurando a página para usar o layout completo
+# Documentação da Biblioteca plotly https://dash.plotly.com/
+# Documentação da Biblioteca streamlit https://docs.streamlit.io/
+# Correção de sintaxe com o chatgpt
+
+# Configurando a página para usar o layout completo (Função do Streamlit)
 st.set_page_config(layout="wide")
 
 # Lendo o arquivo CSV
@@ -115,7 +121,7 @@ with col1:
         st.write("Nenhum imóvel encontrado para o filtro aplicado.")
 
 # Gráfico 3: Presença de mobília
-# site utilizado para escolha das cores https://erikasarti.com/html/tabela-cores/
+# Site utilizado para escolha das cores https://erikasarti.com/html/tabela-cores/
 with col2:
     if not df_filtrado.empty:  
         df_mobilia_agrupados = df_filtrado.groupby('furniture').size().reset_index(name='Quantidade de Imóveis')
